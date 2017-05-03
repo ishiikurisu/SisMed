@@ -2,8 +2,10 @@ function main()
 % Performs the study needed in the report
 
 fprintf('--- Loading data\n');
+% Deleting files that will be populated later on
 delete stats.csv
 delete chis.csv
+% Loading tables into memory
 data = java.util.HashMap;
 dirData = dir('*.csv');
 dirIndex = [ dirData.isdir ];
@@ -15,7 +17,7 @@ end
 
 fprintf('# QUESTION 1\n');
 fp = fopen('stats.csv', 'w');
-fprintf(fp, 'File\tExpected\tObtained\n')
+fprintf(fp, 'File\tExpected\tObtained\n');
 for n = 1:length(CSVs)
     csv = CSVs{n};
     matrix = get(data, csv);
