@@ -72,7 +72,7 @@ plot(tempo, mediaAtual, 'b');
 hold off;
 \end{lstlisting}
 
-A partir deste script, foi gerado o gráfico a seguir, onde a onda vermelha são os dados gerados aleatoriamente e em azul, temos a  média calculada.
+A partir deste script, foi gerado o gráfico 1, onde a onda vermelha são os dados gerados aleatoriamente e em azul, temos a  média calculada.
 
 \section{Filtro de média móvel}
 
@@ -89,7 +89,9 @@ $$\bar{x_k}=\bar{x_{k-1}} + \frac{x_k}{n} - \frac{x_{k-n}}{n}\square$$
 
 Para implementar o filtro dado em MATLAB, foi escrito o seguinte script:
 
-% TODO Add MATLAB script here
+\lstinputlisting[language=Matlab]{media2.m}
+
+Reaproveitando a entrada gerada na função $gerarEntrada()$, foi possível gerar o gráfico na figura 2.
 
 \section{Filtro de média móvel ponderada}
 
@@ -110,12 +112,29 @@ $$\bar{x_k}=\alpha^3\bar{x_{k-3}}+\alpha^2(1-\alpha)x_{k-2}+\alpha(1-\alpha)x_{k
 
 Para implementar o filtro dado em MATLAB, foi escrito o seguinte script:
 
-% TODO Add MATLAB script here
+\lstinputlisting[language=Matlab]{media3.m}
+
+Reaproveitando a entrada gerada na função $gerarEntrada()$, foi possível gerar o gráfico na figura 3.
 
 \subsection{Discussão}
 
 Nota-se que o filtro de média regular manteve sua média sempre no valor verdadeiro, haja visto que o ruído foi simulado para que ele obedecesse um comportamento gaussiano ao redor da altitude de 11000 metros. Isso pode parecer que este é o comportamento ideal de um filtro, mas não suporta bem as características de um sistema real.
 
 Os outros dois filtros (de média móvel e média ponderada) funcionaram melhor neste sentido. Embora ambos estejam dependentes da determinação de um parâmetro (o tamanho da janela no caso do móvel; e o parâmetro $\alpha$ no caso do ponderado), eles atuam como filtros passa-baixa, acompanhando bem as oscilações do modelo real.
+
+\begin{figure}
+  \includegraphics[width=0.9\textwidth]{mediaregular.jpg}
+  \caption{Figura 1. Gráfico da média regular}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.9\textwidth]{mediamovel.jpg}
+  \caption{Figura 2. Gráfico da média móvel}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=0.9\textwidth]{mediamovel.jpg}
+  \caption{Figura 3. Gráfico da média ponderada}
+\end{figure}
 
 \end{document}
