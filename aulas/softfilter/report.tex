@@ -4,6 +4,7 @@
 \usepackage{fancyhdr}
 \usepackage{textcomp}
 \usepackage{graphicx}
+\usepackage{amssymb}
 
 \begin{document}
 
@@ -24,7 +25,8 @@ $$\bar{x_k}=(\frac{1}{k-1}\sum^{k-1}_{i=1}{x_i})\frac{k-1}{k}+\frac{x_k}{k}$$
 Como
 $$\bar{x_{k-1}}=\frac{1}{k-1}\sum^{k-1}_{i=1}{x_i}$$
 Então
-$$\bar{x_k}=\bar{x_{k-1}}\frac{k-1}{k}+\frac{x_k}{k}\box$$
+$$\bar{x_k}=\bar{x_{k-1}}\frac{k-1}{k}+\frac{x_k}{k}\square$$
+% TODO Move QED square to the end of the line
 
 \subsection{Implementação em MATLAB}
 
@@ -40,7 +42,7 @@ Seguindo da definição de média móvel com janela de tamanho $n$,
 $$\bar{x_k}=\frac{x_{k-n+1}+x_{k-n+2}+\ldots+x_{k-1}+x_{k}}{n}$$
 É possível afirmar que
 $$\bar{x_k}=\frac{x_{k-n}}{n} + \frac{x_{k-n+1}+x_{k-n+2}+\ldots+x_{k-1}+x_{k}}{n} -\frac{x_{k-n}}{n}$$
-$$\bar{x_k}=\bar{x_{k-1}} + \frac{x_k}{n} -\frac{x_{k-n}}{n}\box$$
+$$\bar{x_k}=\bar{x_{k-1}} + \frac{x_k}{n} - \frac{x_{k-n}}{n}\square$$
 
 
 \subsection{Implementação em MATLAB}
@@ -53,8 +55,16 @@ Para implementar o filtro dado em MATLAB, foi escrito o seguinte script:
 
 \subsection{Derivação da fórmula recursiva}
 
-% TODO Adicionar prova aqui
-
+Uma média móvel ponderada é definida por
+$$\bar{x_k}=\alpha\bar{x_{k-1}}+(1-\alpha)x_k$$
+onde $\alpha$ é um número real entre 0 e 1. Note que, se calcularmos $\bar{x_{k-1}}$, temos somente uma mudança de índices para realizar:
+$$\bar{x_k-1}=\alpha\bar{x_{k-2}}+(1-\alpha)x_{k-1}$$
+O mesmo acontece com $\bar{x_{k-2}}$:
+$$\bar{x_k-2}=\alpha\bar{x_{k-3}}+(1-\alpha)x_{k-2}$$
+Substituindo as médias anteriores na primeira equação:
+$$\bar{x_{k-1}}=\alpha(\alpha\bar{x_{k-3}}+(1-\alpha)x_{k-2})+(1-\alpha)x_{k-1}$$
+$$\bar{x_{k}}=\alpha(\alpha(\alpha\bar{x_{k-3}}+(1-\alpha)x_{k-2})+(1-\alpha)x_{k-1})+(1-\alpha)x_k$$
+$$\bar{x_k}=\alpha^3\bar{x_{k-3}}+\alpha^2(1-\alpha)x_{k-2}+\alpha(1-\alpha)x_{k-1}+(1-\alpha)x_k\square$$
 
 \subsection{Implementação em MATLAB}
 
@@ -62,6 +72,10 @@ Para implementar o filtro dado em MATLAB, foi escrito o seguinte script:
 
 % TODO Add MATLAB script here
 
+\subsection{Discussão}
 
+Nota-se que o filtro de média regular manteve sua média sempre no valor verdadeiro, haja visto que o ruído foi simulado para que ele obedecesse um comportamento gaussiano ao redor da altitude de 11000 metros. Isso pode parecer que este é o comportamento ideal de um filtro, mas não suporta bem as características de um sistema real.
+
+Os outros dois filtros (de média móvel e média ponderada) funcionaram melhor neste sentido. Embora ambos estejam dependentes da determinação de um parâmetro (o tamanho da janela no caso do móvel; e o parâmetro $\alpha$ no caso do ponderado), eles atuam como filtros passa-baixa, acompanhando bem as oscilações do modelo real.
 
 \end{document}
