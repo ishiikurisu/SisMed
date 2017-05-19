@@ -1,0 +1,67 @@
+\documentclass[12pt, a4paper, twoside]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[cm]{fullpage}
+\usepackage{fancyhdr}
+\usepackage{textcomp}
+\usepackage{graphicx}
+
+\begin{document}
+
+\title{Lista de exercícios sobre filtros de software}
+\author{Cristiano Silva Júnior}
+\date{23 de Junho de 2017}
+\maketitle
+
+\section{Filtro de média}
+
+\subsection{Mostrar a derivação da forma recursiva.}
+
+A partir da definição da média
+$$\bar{x_k}=\frac{1}{k}\sum^{k}_{i=1}{x_i}$$
+Podemos fazer a seguinte manipulação
+$$\bar{x_k}=\frac{1}{k-1}\sum^{k-1}_{i=1}{x_i}+\frac{x_k}{k}$$
+$$\bar{x_k}=(\frac{1}{k-1}\sum^{k-1}_{i=1}{x_i})\frac{k-1}{k}+\frac{x_k}{k}$$
+Como
+$$\bar{x_{k-1}}=\frac{1}{k-1}\sum^{k-1}_{i=1}{x_i}$$
+Então
+$$\bar{x_k}=\bar{x_{k-1}}\frac{k-1}{k}+\frac{x_k}{k}\box$$
+
+\subsection{Implementação em MATLAB}
+
+Para implementar o filtro dado em MATLAB, foi escrito o seguinte script:
+
+% TODO Add MATLAB script here
+
+\section{Filtro de média móvel}
+
+\subsection{Derivação da fórmula recursiva}
+
+Seguindo da definição de média móvel com janela de tamanho $n$,
+$$\bar{x_k}=\frac{x_{k-n+1}+x_{k-n+2}+\ldots+x_{k-1}+x_{k}}{n}$$
+É possível afirmar que
+$$\bar{x_k}=\frac{x_{k-n}}{n} + \frac{x_{k-n+1}+x_{k-n+2}+\ldots+x_{k-1}+x_{k}}{n} -\frac{x_{k-n}}{n}$$
+$$\bar{x_k}=\bar{x_{k-1}} + \frac{x_k}{n} -\frac{x_{k-n}}{n}\box$$
+
+
+\subsection{Implementação em MATLAB}
+
+Para implementar o filtro dado em MATLAB, foi escrito o seguinte script:
+
+% TODO Add MATLAB script here
+
+\section{Filtro de média móvel ponderada}
+
+\subsection{Derivação da fórmula recursiva}
+
+% TODO Adicionar prova aqui
+
+
+\subsection{Implementação em MATLAB}
+
+Para implementar o filtro dado em MATLAB, foi escrito o seguinte script:
+
+% TODO Add MATLAB script here
+
+
+
+\end{document}
