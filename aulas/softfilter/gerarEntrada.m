@@ -1,5 +1,6 @@
 function [tempo altitude] = gerarEntrada()
-% Gera os dados para serem usados nos filtros. Tempo em segundos e altitude em metros.
+% Gera os dados para serem usados nos filtros. Tempo em segundos e altitude em
+% metros.
 %
 tempo = 1:5:10000;
 altitude = [ ];
