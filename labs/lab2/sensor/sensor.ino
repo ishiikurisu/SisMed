@@ -50,7 +50,7 @@ void readWithMean()
     {
         // TODO Convert analog values to voltage
         // TODO Apply filter
-        Serial.print(millis());
+        Serial.print(micros());
         Serial.print(" ");
         Serial.print(toVolts(analogRead(TERMOPAR)));
         Serial.print(" ");
@@ -65,8 +65,14 @@ void readWithWindowed()
 {
     for (int i = 0; i < HOW_MANY; ++i)
     {
-        Serial.print(millis());
+        // TODO Convert analog values to voltage
+        // TODO Apply filter
+        Serial.print(micros());
         Serial.print(" ");
+        Serial.print(toVolts(analogRead(TERMOPAR)));
+        Serial.print(" ");
+        Serial.print(toVolts(analogRead(LM35)));
+        Serial.print(";");
     }
 
     Serial.println();
@@ -76,8 +82,14 @@ void readWithExp()
 {
     for (int i = 0; i < HOW_MANY; ++i)
     {
-        Serial.print(millis());
+        // TODO Convert analog values to voltage
+        // TODO Apply filter
+        Serial.print(micros());
         Serial.print(" ");
+        Serial.print(toVolts(analogRead(TERMOPAR)));
+        Serial.print(" ");
+        Serial.print(toVolts(analogRead(LM35)));
+        Serial.print(";");
     }
 
     Serial.println();
