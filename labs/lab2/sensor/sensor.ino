@@ -38,16 +38,23 @@ void serialEvent()
     }
 }
 
+float toVolts(int analog)
+{
+    return map(analog, 0, 1023, 0, 5000) / 1000.0;
+}
+
 // TODO Implement filters
 void readWithMean()
 {
     for (int i = 0; i < HOW_MANY; ++i)
     {
+        // TODO Convert analog values to voltage
+        // TODO Apply filter
         Serial.print(millis());
         Serial.print(" ");
-        Serial.print(analogRead(TERMOPAR));
+        Serial.print(toVolts(analogRead(TERMOPAR)));
         Serial.print(" ");
-        Seria.print(analogRead(LM35));
+        Serial.print(toVolts(analogRead(LM35)));
         Serial.print(";");
     }
 
