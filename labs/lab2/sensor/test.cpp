@@ -32,19 +32,22 @@ int main(int argc, char const *argv[])
     }
 
     // Applying filters
-    // TODO Create regular mean filter
     MEAN_FILTER mean_filter;
     // TODO Create windowed mean filter
+    WINDOW_FILTER window_filter(10);
     // TODO Create exponential mean filter
 
     for (int i = 0; i < NO_SAMPLES; ++i)
     {
         mean_filter.add(inlet[i]);
+        window_filter.add(inlet[i]);
         out_mean[i] = mean_filter.get();
+        out_window[i] = window_filter.get();
     }
 
     // Writting output
     write(inlet, out_mean);
+    write(inlet, out_window);
 
     return 0;
 }

@@ -1,4 +1,25 @@
+#include "stdlib.h"
 #include "./filters.h"
+
+/* #########
+   # TOOLS #
+   ######### */
+
+double FILTERS_MEAN(int how_many, double* what)
+{
+    double mean = 0;
+
+    for (int i = 0; i < how_many; i++)
+    {
+        mean += what[i];
+    }
+
+    return mean/how_many;
+}
+
+/* ##########################
+   # MEAN FILTER DEFINITION #
+   ########################## */
 
 MEAN_FILTER::MEAN_FILTER()
 {
@@ -15,4 +36,33 @@ void MEAN_FILTER::add(double inlet)
 double MEAN_FILTER::get()
 {
     return this->current_mean;
+}
+
+/* ############################
+   # WINDOW FILTER DEFINITION #
+   ############################ */
+
+WINDOW_FILTER::WINDOW_FILTER(int window_size)
+{
+    this->window_size = window_size;
+    this->values = (double*) malloc(sizeof(double) * this->window_size);
+
+    for (int i = 0; i < this->window_size; ++i)
+    {
+        this->values[i] = 0;
+    }
+}
+
+void WINDOW_FILTER::add(double inlet)
+{
+    for (int i = 1; i < this->window_size; ++i)
+    {
+        this->values[i] = this->values[i-1];
+    }
+    this->values[0] = inlet;
+}
+
+double WINDOW_FILTER::get()
+{
+    return FILTERS_MEAN(this->window_size, this->values);
 }
