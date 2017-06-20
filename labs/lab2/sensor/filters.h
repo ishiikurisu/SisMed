@@ -21,4 +21,14 @@ public:
     double get();
 };
 
+class EXP_FILTER
+{
+    double alpha;
+    double current_mean;
+public:
+    EXP_FILTER(double);
+    void add(double);
+    double get();
+};
+
 #endif

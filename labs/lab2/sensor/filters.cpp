@@ -66,3 +66,23 @@ double WINDOW_FILTER::get()
 {
     return FILTERS_MEAN(this->window_size, this->values);
 }
+
+/* #####################################
+   # EXPONENTIAL FILTER IMPLEMENTATION #
+   ##################################### */
+
+EXP_FILTER::EXP_FILTER(double alpha)
+{
+    this->alpha = alpha;
+    this->current_mean = 0;
+}
+
+void EXP_FILTER::add(double inlet)
+{
+    current_mean = alpha*current_mean + (1-alpha)*inlet;
+}
+
+double EXP_FILTER::get()
+{
+    return this->current_mean;
+}
