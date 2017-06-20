@@ -11,7 +11,7 @@ filters:
 	g++ -c filters.cpp -Ifilters.h
 
 run:
-	./$(EXE)
+	./$(EXE) > out.txt
 
 clean:
 	rm $(EXE)
