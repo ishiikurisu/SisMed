@@ -2,16 +2,15 @@ function main()
 % Função principal do MATLAB
 
 % Abrir o Arduino
+howMany = input('Quantas medidas? ');
 arduino = serial(input('Qual porta? ', 's'), 'BaudRate', 9600);
 fopen(arduino);
-stuff = [ ];
 
 % Ler os valores
-userInput = input('Qual filtro e quantas medidas? ', 's');
-[filterKind howMany] = sscanf(userInput, '%s %f');
-fprintf(arduino, '%s\n', userInput);
-line = fgetl(arduino);
-fprintf('%s\n', line);
+for n = 1:howMany
+    line = fgetl(arduino);
+    disp(line);
+end
 
 % Fechar o Arduino
 fclose(arduino);
