@@ -23,11 +23,11 @@ void loop()
     window_filter.add(lm35_measure);
     exp_filter.add(lm35_measure);
     Serial.print(millis());
-    Serial.print("\t");
+    Serial.print(";");
     Serial.print(mean_filter.get());
-    Serial.print("\t");
+    Serial.print(";");
     Serial.print(window_filter.get());
-    Serial.print("\t");
+    Serial.print(";");
     Serial.println(exp_filter.get());
     delay(500);
 }
