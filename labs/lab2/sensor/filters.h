@@ -37,7 +37,6 @@ class KALMAN_FILTER
     double Pp;
     double P;
     double K;
-    double z;
     double A;
     double Q;
     double R;

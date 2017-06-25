@@ -9,14 +9,12 @@ void write(double* ref, double* proc)
 {
     for (int i = 0; i < NO_SAMPLES; ++i)
     {
-        printf("%d %.5lf %.5lf;", i*10, proc[i], ref[i]);
+        printf("%d;%.5lf;%.5lf\n", i*10, proc[i], ref[i]);
     }
-    printf("\n");
 }
 
 int main(int argc, char const *argv[])
 {
-    // Setup of test environment
     double* inlet = (double*) malloc(sizeof(double) * NO_SAMPLES);
     double* out_kalman = (double*) malloc(sizeof(double) * NO_SAMPLES);
     srand(time(NULL));
