@@ -86,3 +86,34 @@ double EXP_FILTER::get()
 {
     return this->current_mean;
 }
+
+/* ################################
+   # KALMAN FILTER IMPLEMENTATION #
+   ################################ */
+
+KALMAN_FILTER::KALMAN_FILTER()
+{
+    xp = 0;
+    Pp = 0;
+    P = 1;
+    K = 0;
+    A = 1;
+    Q = 1;
+    R = 1;
+    H = 1;
+    x = 0;
+}
+
+void KALMAN_FILTER::add(double z)
+{
+    xp = A*x;
+    Pp = A*P*A +Q;
+    K = Pp*H*1/(H*Pp*H + R);
+    x = xp + K*(z-H*xp);
+    P = Pp - K*H*Pp;
+}
+
+double KALMAN_FILTER::get()
+{
+    return x;
+}

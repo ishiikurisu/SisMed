@@ -31,4 +31,22 @@ public:
     double get();
 };
 
+class KALMAN_FILTER
+{
+    double xp;
+    double Pp;
+    double P;
+    double K;
+    double z;
+    double A;
+    double Q;
+    double R;
+    double H;
+    double x;
+public:
+    KALMAN_FILTER();
+    void add(double);
+    double get();
+};
+
 #endif
