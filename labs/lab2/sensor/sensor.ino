@@ -3,6 +3,23 @@
 #define TERMOPAR (A0)
 #define LM35 (A5)
 
+/* ######################
+   # PHYSICAL FUNCTIONS #
+   ###################### */
+
+// Convert the voltage read from a K type thermocouple to celsius degrees
+// based on the reading of a LM35 sensor in celsius.
+double convert_to_temperature(double thermocouple, double ref_temp)
+{
+    return (thermocouple * 0.08) - ref_temp;
+}
+
+
+/* ################
+   # MAIN PROGRAM #
+   ################ */
+
+/* Filter selection */
 // MEAN_FILTER lm35_filter;
 // MEAN_FILTER thermocouple_filter;
 WINDOW_FILTER lm35_filter(10);
@@ -14,6 +31,7 @@ WINDOW_FILTER thermocouple_filter(10);
 double lm35_measure;
 double thermocouple_measure;
 
+// Setting Arduino up
 void setup()
 {
     pinMode(LED, OUTPUT);
@@ -22,11 +40,14 @@ void setup()
     Serial.begin(9600);
 }
 
+// Writes on the serial port a comma separated value string
+// relating the time, the lm35 filtered measure and the
+// thermocouple measure
 void loop()
 {
     // Measuring
     lm35_measure = (5 * analogRead(LM35) * 100.0) / 1024;
-    thermocouple_measure = map(analogRead(TERMOPAR), 0, 1023, 0, 5000) /  1000.0;
+    thermocouple_measure = convert_to_temperature(analogRead(TERMOPAR), lm35_measure);
 
     // Filtering
     lm35_filter.add(lm35_measure);
