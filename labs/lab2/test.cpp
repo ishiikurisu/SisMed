@@ -15,22 +15,22 @@ void write(double* ref, double* proc)
 
 int main(int argc, char const *argv[])
 {
+    KALMAN_FILTER filter;
     double* inlet = (double*) malloc(sizeof(double) * NO_SAMPLES);
-    double* out_kalman = (double*) malloc(sizeof(double) * NO_SAMPLES);
+    double* outlet = (double*) malloc(sizeof(double) * NO_SAMPLES);
     srand(time(NULL));
     for (int i = 0; i < NO_SAMPLES; ++i)
     {
         inlet[i] = 420 + (rand() % 20 - 40);
-        out_kalman[i] = 0;
+        outlet[i] = 0;
     }
 
-    KALMAN_FILTER kalman_filter;
     for (int i = 0; i < NO_SAMPLES; ++i)
     {
-        kalman_filter.add(inlet[i]);
-        out_kalman[i] = kalman_filter.get();
+        filter.add(inlet[i]);
+        outlet[i] = filter.get();
     }
 
-    write(inlet, out_kalman);
+    write(inlet, outlet);
     return 0;
 }

@@ -17,6 +17,7 @@ class WINDOW_FILTER
     double* values;
 public:
     WINDOW_FILTER(int);
+    ~WINDOW_FILTER();
     void add(double);
     double get();
 };

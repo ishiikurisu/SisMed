@@ -3,10 +3,14 @@
 #define TERMOPAR (A0)
 #define LM35 (A5)
 
-MEAN_FILTER mean_filter;
-WINDOW_FILTER window_filter(10);
-EXP_FILTER exp_filter(0.7);
-MEAN_FILTER thermocouple_mean;
+// MEAN_FILTER lm35_filter;
+// MEAN_FILTER thermocouple_filter;
+WINDOW_FILTER lm35_filter(10);
+WINDOW_FILTER thermocouple_filter(10);
+// EXP_FILTER lm35_filter(0.7);
+// EXP_FILTER thermocouple_filter(0.7);
+// KALMAN_FILTER lm35_filter;
+// KALMAN_FILTER thermocouple_filter;
 double lm35_measure;
 double thermocouple_measure;
 
@@ -21,18 +25,18 @@ void setup()
 void loop()
 {
     // Measuring
-    lm35_measure = (4 * analogRead(LM35) * 100.0) / 1024;
-    thermocouple_measure = map(analogRead(TERMOPAR), 0, 5000, 0, 1023) /  1000.0;
+    lm35_measure = (5 * analogRead(LM35) * 100.0) / 1024;
+    thermocouple_measure = map(analogRead(TERMOPAR), 0, 1023, 0, 5000) /  1000.0;
 
     // Filtering
-    mean_filter.add(lm35_measure);
-    thermocouple_mean.add(thermocouple_measure);
+    lm35_filter.add(lm35_measure);
+    thermocouple_filter.add(thermocouple_measure);
 
     // Writting output
     Serial.print(millis());
     Serial.print(";");
-    Serial.print(mean_filter.get());
+    Serial.print(lm35_filter.get());
     Serial.print(";");
-    Serial.println(thermocouple_mean.get(), 5);
+    Serial.println(thermocouple_filter.get(), 5);
     delay(500);
 }

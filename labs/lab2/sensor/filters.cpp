@@ -1,5 +1,9 @@
 #include "stdlib.h"
 #include "./filters.h"
+#define MEAN_FILTER_KIND 8
+#define WINDOW_FILTER_KIND 9
+#define EXP_FILTER_KIND 10
+#define KALMAN_FILTER_KIND 11
 
 /* #########
    # TOOLS #
@@ -51,6 +55,11 @@ WINDOW_FILTER::WINDOW_FILTER(int window_size)
     {
         this->values[i] = 0;
     }
+}
+
+WINDOW_FILTER::~WINDOW_FILTER()
+{
+    free(this->values);
 }
 
 void WINDOW_FILTER::add(double inlet)
